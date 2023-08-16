@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "movie-scrapper-api"
+version = "0.1.0"
+description = ""
+authors = ["Iakovos Mastrogiannopoulos <imastro@f-in.eu>"]
+readme = "README.md"
+packages = [{include = "movie_scrapper_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+httpx = "^0.24.1"
+fastapi = "^0.101.1"
+loguru = "^0.7.0"
+uvicorn = "^0.23.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest-asyncio = "^0.21.1"
+
+[tool.pytest.ini_options]
+testpaths=["tests"]
+markers = [""]
+addopts = ["-s -v --durations=0"]
+cache_dir = ".cache/pytest_cache"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
