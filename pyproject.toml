@@ -18,8 +18,8 @@ pytest-asyncio = "^0.21.1"
 
 [tool.pytest.ini_options]
 testpaths=["tests"]
-markers = [""]
-addopts = ["-s -v --durations=0"]
+markers = ["scrapper"]
+addopts = "-s -v --durations=0"
 cache_dir = ".cache/pytest_cache"
 
 [build-system]
