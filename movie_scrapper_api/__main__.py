@@ -2,6 +2,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 
+from movie_scrapper_api.api.v1.routes import v1_router
 from movie_scrapper_api.config import setup_app_logging, settings
 
 BASE_PATH = Path(__file__).resolve().parent
@@ -13,6 +14,8 @@ app = FastAPI(
         "syntaxHighlight.theme": "monokai"
     },
 )
+
+app.include_router(v1_router, prefix="/api/v1")
 
 if __name__ == '__main__':
     import uvicorn
