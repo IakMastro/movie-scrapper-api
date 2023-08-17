@@ -35,7 +35,7 @@ class Scrapper:
                 }
             )
 
-        return MediaModel.parse_obj({
+        return MediaModel.model_validate({
             'title': media_data['Title'],
             'year': media_data['Year'],
             'rated': media_data['Rated'],
@@ -77,8 +77,8 @@ class Scrapper:
                 "year": media["Year"],
                 "imdbID": media["imdbID"],
                 "type": media["Type"],
-                "poster": media["Poster"]
+                "poster": media["Poster"] if media['Poster'] != "N/A" else None
             })
-        return SearchModel.parse_obj({
+        return SearchModel.model_validate({
             "search": search_data
         })

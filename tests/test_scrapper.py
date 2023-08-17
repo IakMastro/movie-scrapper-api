@@ -35,5 +35,4 @@ class TestScrapper:
     async def test_search_movie(self, movie_name):
         scrapper = Scrapper()
         media_data = await scrapper.search_media(movie_name)
-        print(media_data)
-        assert len(media_data['search']) > 0
+        assert len(media_data.search) > 0
