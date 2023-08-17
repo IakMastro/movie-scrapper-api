@@ -1,7 +1,7 @@
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
-from pydantic.v1 import BaseModel, HttpUrl
+from pydantic import BaseModel, HttpUrl
 
 
 class Rating(BaseModel):
@@ -19,6 +19,7 @@ class MediaType(str, Enum):
     Movie = "movie"
     TvShow = "series"
     Episode = "episode"
+    Game = "game"
 
 
 class MediaModel(BaseModel):
@@ -46,7 +47,7 @@ class SearchMedia(BaseModel):
     year: str
     imdbID: str
     type: MediaType
-    poster: HttpUrl
+    poster: Optional[HttpUrl]
 
 
 class SearchModel(BaseModel):
