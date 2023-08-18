@@ -47,7 +47,7 @@ class Scrapper:
             'actors': [actor.strip() for actor in media_data['Actors'].split(',')],
             'plot': media_data['Plot'],
             'languages': [language.strip() for language in media_data['Language'].split(',')],
-            'country': media_data['Country'],
+            'countries': [country.strip() for country in media_data['Country'].split(',')],
             'awards': media_data['Awards'],
             'poster': media_data['Poster'],
             'ratings': ratings,
