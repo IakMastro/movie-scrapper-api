@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from movie_scrapper_api.models.errors import HTTPError
 from movie_scrapper_api.models.media import MediaModel, SearchModel
@@ -20,7 +20,11 @@ v1_router = APIRouter()
 )
 async def get_media_by_name(media_name: str) -> MediaModel:
     scrapper = Scrapper()
-    return await scrapper.find_media_by_name(media_name)
+    try:
+        media = await scrapper.find_media_by_name(media_name)
+    except ValueError as err:
+        raise HTTPException(status_code=404, detail=str(err))
+    return media
 
 
 @v1_router.get(
@@ -36,4 +40,8 @@ async def get_media_by_name(media_name: str) -> MediaModel:
 )
 async def search_media_by_name(media_name: str) -> SearchModel:
     scrapper = Scrapper()
-    return await scrapper.search_media(media_name)
+    try:
+        media = await scrapper.search_media(media_name)
+    except ValueError as err:
+        raise HTTPException(status_code=404, detail=str(err))
+    return media

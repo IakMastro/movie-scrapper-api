@@ -70,6 +70,9 @@ class Scrapper:
         )
 
         media_data = response.json()
+        if "Error" in media_data:
+            raise ValueError(media_data['Error'])
+
         search_data = []
         for media in media_data['Search']:
             search_data.append({
