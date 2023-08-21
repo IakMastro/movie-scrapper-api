@@ -2,6 +2,7 @@ import importlib.metadata
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from movie_scrapper_api.api.v1.routes import v1_router
 from movie_scrapper_api.config import setup_app_logging, settings
@@ -38,6 +39,11 @@ app = FastAPI(
     swagger_ui_parameters={
         "syntaxHighlight.theme": "monokai"
     },
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['http://localhost:4200']
 )
 
 app.include_router(v1_router, prefix="/api/v1")
