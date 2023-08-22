@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "movie-scrapper-api"
-version = "1.0.1"
+version = "1.1.0"
 description = "The API of the Movie Scrapper"
 authors = ["Iakovos Mastrogiannopoulos <imastro@f-in.eu>"]
 readme = "README.md"
