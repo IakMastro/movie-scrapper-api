@@ -1,7 +1,7 @@
 import httpx
 
 from movie_scrapper_api.config import settings
-from movie_scrapper_api.models.media import MediaModel, Rating, SearchModel
+from movie_scrapper_api.models.media import MediaModel, SearchModel
 
 
 class Scrapper:
@@ -12,14 +12,11 @@ class Scrapper:
             base_url="https://omdbapi.com"
         )
 
-    async def find_media_by_name(self, media_name) -> MediaModel:
+    async def find_media(self, params: dict) -> MediaModel:
+        params['apiKey'] = settings.OMDB_API_KEY
         response = await self.__client.get(
             "",
-            params={
-                "apikey": settings.OMDB_API_KEY,
-                "plot": "full",
-                "t": media_name
-            }
+            params=params
         )
 
         media_data = response.json()
