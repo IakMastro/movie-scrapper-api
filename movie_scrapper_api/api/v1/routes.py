@@ -1,14 +1,16 @@
-from fastapi import APIRouter, HTTPException
+from typing import Annotated
+
+from fastapi import APIRouter, HTTPException, Query
 
 from movie_scrapper_api.models.errors import HTTPError
-from movie_scrapper_api.models.media import MediaModel, SearchModel
+from movie_scrapper_api.models.media import MediaModel, SearchModel, GetMediaMode, MediaType, PlotType
 from movie_scrapper_api.scrapper import Scrapper
 
 v1_router = APIRouter()
 
 
 @v1_router.get(
-    "/media/{media_name}",
+    "/media",
     status_code=200,
     summary="The info of the media that matches the name given",
     response_description="The media.",
@@ -18,10 +20,22 @@ v1_router = APIRouter()
     },
     tags=["Media"]
 )
-async def get_media_by_name(media_name: str) -> MediaModel:
+async def get_media(
+        q: Annotated[str, Query()],
+        mode: Annotated[GetMediaMode, Query()] = GetMediaMode.ID,
+        type: Annotated[MediaType | None, Query()] = None,
+        year: Annotated[str | None, Query()] = None,
+        plot: Annotated[PlotType, Query()] = PlotType.Short
+) -> MediaModel:
     scrapper = Scrapper()
     try:
-        media = await scrapper.find_media_by_name(media_name)
+        params = {
+            mode.value: q,
+            'plot': plot
+        }
+        if type is not None: params['type'] = type.value
+        if year is not None: params['year'] = year
+        media = await scrapper.find_media(params)
     except ValueError as err:
         raise HTTPException(status_code=404, detail=str(err))
     return media

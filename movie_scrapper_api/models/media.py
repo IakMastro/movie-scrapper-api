@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, HttpUrl, Field
+from pydantic import BaseModel, HttpUrl, Field, model_validator
 
 
 class Rating(BaseModel):
@@ -178,6 +178,16 @@ class MediaModel(BaseModel):
         example="https://vidsrc.to/embed/series/tt0436992",
         description="The vidsrc URL of the media. DISCLAIMER: Some links may not work as they are not tested"
     )
+
+
+class PlotType(str, Enum):
+    Short = "short"
+    Full = "full"
+
+
+class GetMediaMode(str, Enum):
+    ID = "i"
+    Title = "t"
 
 
 class SearchMedia(BaseModel):
